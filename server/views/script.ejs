@@ -4,7 +4,6 @@
         // Function that send the file to the server to check it with the LSTM pre trained model
         let input = document.getElementById("input_file");
         if(input.files.length == 0) return;
-        document.getElementById("button").setAttribute("disabled", true);
         let file = input.files[0];
         let formData = new FormData();
         formData.append("file", file);

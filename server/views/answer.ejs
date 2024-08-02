@@ -1,14 +1,22 @@
-<%- include("head.ejs") -%>
+<!DOCTYPE html>
+<head>
+    <%- include("head.ejs") -%>
+    <link rel="stylesheet" type="text/css" href="answer.css">
+</head>
 <body>
+    <p id="likely">Infection probability: <%= 100*locals.percentage %>%</p>
+    <p id ="answer">
     <% if (percentage > 0.5) { %>
-        <p>Your device seems to be infected: <%= percentage %></p>
+        Your device seems to be infected.
     <% } else if (percentage < 0.5) { %>
-        <p>Your device seems to be safe: <%= percentage %></p>
+        Your device seems to be safe.
     <% } else { %>
-        <p>Your device seems to be undefined: 0.5</p>
+        Device state not clearly defined.
     <% } %>
-    <button id="home_button">Check another file</button>
-    <%- include('script.ejs') -%>
+    </p>
+    <div id="home_button_container">
+        <button id="home_button">Check another file</button>
+    </div>
     <script>
         document.getElementById("home_button").addEventListener("click", home_button);
     </script>
