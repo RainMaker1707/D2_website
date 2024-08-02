@@ -55,7 +55,6 @@ app.get('/answer', (req, res)=>{
 
 
 app.post('/upload', upload.single('file'), (req, res)=>{
-    console.log("received file");
     let tempPath = '/home/rainmaker/Desktop/D2_website/temp/'
     // writting to temporary file
     fs.writeFile(tempPath+req.file.originalname, req.file.buffer, err=>{
@@ -63,7 +62,6 @@ app.post('/upload', upload.single('file'), (req, res)=>{
             console.log(err);
             return res.status(500).send("File write error");
         }
-        tf_mod.test();
         let perc = tf_mod.preprocess_and_predict(tempPath+req.file.originalname);
         // deleting file
         fs.unlink(tempPath+req.file.originalname, err=>{
