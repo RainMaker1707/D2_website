@@ -1,5 +1,5 @@
 <script>
-
+    
     function button(){
         // Function that send the file to the server to check it with the LSTM pre trained model
         let input = document.getElementById("input_file");
@@ -10,8 +10,25 @@
         formData.append("file", file);
         let req = new XMLHttpRequest();
         req.open("POST", '/upload');
+        req.onreadystatechange = () => {
+            if(req.status == 200) {
+                window.location.href = req.responseURL;
+                console.log("ok");
+            } else console.error("failed: ", req.statusText);
+        };
         req.send(formData);
     };
 
-    document.getElementById("button").addEventListener("click", button);
+    function home_button(){
+        console.log("HOME");
+        let req = new XMLHttpRequest();
+        req.open("GET", '/');
+        req.onreadystatechange = () => {
+            if(req.status == 200) {
+                window.location.href = req.responseURL;
+                console.log("ok");
+            } else console.error("failed: ", req.statusText);
+        };
+        req.send(null);
+    }
 </script>

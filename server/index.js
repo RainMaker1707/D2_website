@@ -27,7 +27,7 @@ let middleware = session({
         path: '/',
         httpOnly: true,
         maxAge: 1000*60*60*24*7, //One week cookie lifetime
-        secure: true,
+        secure: false,
     }
 });
 
@@ -49,6 +49,11 @@ app.get('/', (req, res)=>{
 });
 
 
+app.get('/answer', (req, res)=>{
+    res.render('answer.ejs', {percentage: req.query.perc});
+});
+
+
 app.post('/upload', upload.single('file'), (req, res)=>{
     console.log("received file");
     let tempPath = '/home/rainmaker/Desktop/D2_website/temp/'
@@ -66,14 +71,8 @@ app.post('/upload', upload.single('file'), (req, res)=>{
                 console.log(err);
                 return res.status(500).send("File delete error");
             }
-            res.status(200).send("File received");
-            res.render('home.ejs', {percentage: perc?perc:0}, (err, html)=>{
-                if(err) console.log(err);
-                else console.log("Render ok");
-            });
+            res.redirect(`/answer?perc=${perc}`);
         });
-
     });
-   
 })
 
