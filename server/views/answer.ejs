@@ -1,0 +1,10 @@
+<%- include("head.ejs") -%>
+<body>
+    <% if(locals.percentage > 0.5) { %>
+        <p>Your device seems to be infected: <%=locals.percentage%></p>
+    <% } else if(locals.percentage < 0.5){ %>
+        <p>Your device seems to be safe: <%=locals.percentage %></p>
+    <% }else { %>
+        <p>Your device seems to be undefined: 0.5</p>
+    <% } %>
+</body>
