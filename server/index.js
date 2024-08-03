@@ -38,10 +38,16 @@ app.set('views', path.join(__dirname, './views'));
 app.use(parser.urlencoded({extended: true}));
 app.use(middleware);
 
+let server = https.createServer({
+    key: fs.readFileSync('./server/cert/cert.key'),
+    cert: fs.readFileSync('./server/cert/cert.crt')
+}, app).listen(443);
 
 
-let server = http.createServer({
-}, app).listen(3000);
+http.createServer((req, res)=>{
+    res.writeHead(301, {"Location": "https://" + req.headers['host'] + req.url});
+    res.end();
+}).listen(80);
 
 
 app.get('/', (req, res)=>{
