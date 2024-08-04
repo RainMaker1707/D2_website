@@ -1,4 +1,1 @@
-node_modules/*
-package-lock.json
-d2.zip
-server/cert/*
+__pycache__
