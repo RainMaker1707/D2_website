@@ -10,6 +10,25 @@
         gtag('config', 'G-4T2H5SLF4E');
         </script>
 
+        <script>
+            function send_file(){
+                let input = document.getElementById("input");
+                if(input.files.length == 0) {
+                    console.error("Need a file to send");
+                    return;
+                }
+                let req = new XMLHttpRequest();
+                let file = input.files[0];
+                let formData = new FormData();
+                formData.append("file", file);
+                req.open("POST", '/upload');
+                req.onreadystatechange = () => {
+                    if(req.status == 200) window.location.href = req.responseURL;
+                }
+                req.send(formData);
+            }
+        </script>
+
         <title>D2 Framework</title>
     </head>
 
@@ -19,8 +38,11 @@
             <h2>A framework that is able to detect C2 framework from netflow</h2>
         </header>
         <div>
-            <input type="file" accept=".csv"/>
-            <button>Check file</button>
+            <input id="input" type="file" accept=".csv"/>
+            <button id="button">Check file</button>
         </div>
     </body>
+    <script>
+        document.getElementById("button").addEventListener('click', send_file)
+    </script>
 </html>
